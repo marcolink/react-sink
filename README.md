@@ -58,9 +58,9 @@ function MyComponent({flag}) {
 import { useAllBoolean } from 'react-sink'
 
 function MyComponent() {
-    const expectAllTrueWillBeFalse = useAllBoolean({hello: true, world: false})
-    const expectAllTrueWillBeTrue = useAllBoolean({hello: true, world: true})
-    const expectAllFalseWillBeFalse = useAllBoolean({hello: false, world: false}, false)
+    const expectAllTrueWillBeFalse = useAllBoolean({ hello: true, world: false })
+    const expectAllTrueWillBeTrue = useAllBoolean({ hello: true, world: true })
+    const expectAllFalseWillBeFalse = useAllBoolean({ hello: false, world: false }, false)
 }
 ```
 
@@ -73,5 +73,15 @@ import {usePeriodicCallback} from 'react-sink'
 function MyComponent() {
     const callback = useCallback(()=> console.log("called!"), [])
     const result = usePeriodicCallback(callback, 100)
+}
+```
+
+### `useWindowSize`
+
+```typescript jsx
+import {useWindowSize} from 'react-sink'
+
+function MyComponent() {
+    const { width, height } = useWindowSize()
 }
 ```
