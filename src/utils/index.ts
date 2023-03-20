@@ -1,0 +1,1 @@
+export {allPropsMatch} from './allPropsMatch'

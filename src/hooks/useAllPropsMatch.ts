@@ -1,11 +1,11 @@
 import {useCallback, useEffect, useState} from "react";
-
-type Matcher<T> = (value: T) => boolean
+import {Matcher} from "../types";
+import {allPropsMatch} from "../utils";
 
 export const useAllPropsMatch = <ValueType, DataType extends Record<string, ValueType>>(record: DataType, valueMatcher: Matcher<ValueType>) => {
 
     const matchFn = useCallback((data: DataType) => {
-        return Object.keys(data).every(key => valueMatcher(data[key]))
+        return allPropsMatch(data, valueMatcher)
     }, [valueMatcher])
 
     const [state, setState] = useState<boolean>(() => matchFn(record));
