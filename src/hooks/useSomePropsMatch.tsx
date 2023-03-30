@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useMemo} from 'react';
 import {Matcher} from '../types';
 import {somePropsMatch} from "../utils";
 
@@ -13,11 +13,5 @@ export const useSomePropsMatch = <ValueType, DataType extends Record<string, Val
         [valueMatcher]
     );
 
-    const [state, setState] = useState<boolean>(() => matchFn(record));
-
-    useEffect(() => {
-        setState(matchFn(record));
-    }, [record, valueMatcher, matchFn]);
-
-    return state;
+    return useMemo(() => matchFn(record), [record, matchFn]);
 };
