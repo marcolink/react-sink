@@ -85,3 +85,13 @@ function MyComponent() {
     const { width, height } = useWindowSize()
 }
 ```
+
+### `useAbortOnUnmount`
+
+```typescript jsx
+import {useAbortOnUnmount} from 'react-sink'
+
+function MyComponent() {
+    const abortSignal = useAbortOnUnmount()
+}
+```
