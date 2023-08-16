@@ -1,5 +1,10 @@
 # react sink
-A classy kitchen sink for all react pieces daily used.
+A classy kitchen sink for all react pieces daily used - not the ordinary.
+
+[![Version](https://img.shields.io/npm/v/react-sink.svg)](https://npmjs.org/package/react-sink)
+[![Downloads/week](https://img.shields.io/npm/dw/react-sink.svg)](https://npmjs.org/package/react-sink)
+[![Size](https://img.shields.io/bundlephobia/min/react-sink.svg)](https://npmjs.org/package/react-sink)
+[![Semantic Release](https://github.com/marcolink/react-sink/actions/workflows/semantic-release.yml/badge.svg)](https://github.com/marcolink/react-sink/actions/workflows/semantic-release.yml)
 
 ### Install
 **yarn**
