@@ -3,32 +3,32 @@ import {usePeriodicCallback} from "./usePeriodicCallback";
 
 describe('A usePeriodicCallback', () => {
     beforeEach(() => {
-        vi.useFakeTimers()
+        jest.useFakeTimers()
     })
     afterEach(() => {
-        vi.restoreAllMocks()
+        jest.restoreAllMocks()
     })
 
     it('calls the callback periodically', () => {
-        const callback = vi.fn()
+        const callback = jest.fn()
         renderHook(() => usePeriodicCallback(callback, 100))
-        vi.advanceTimersByTime(250)
+        jest.advanceTimersByTime(250)
         expect(callback).toHaveBeenCalledTimes(2)
     })
 
     it('stops the execution on unmount', () => {
-        const callback = vi.fn()
+        const callback = jest.fn()
         const {unmount} = renderHook(() => usePeriodicCallback(callback, 100))
-        vi.advanceTimersByTime(150)
+        jest.advanceTimersByTime(150)
         expect(callback).toHaveBeenCalledTimes(1)
         unmount()
-        vi.advanceTimersByTime(100)
+        jest.advanceTimersByTime(100)
         expect(callback).toHaveBeenCalledTimes(1)
     })
 
     it('change callback during timeout', () => {
-        const callback1 = vi.fn()
-        const callback2 = vi.fn()
+        const callback1 = jest.fn()
+        const callback2 = jest.fn()
 
         const initialProps = {
             initialProps: {
@@ -40,9 +40,9 @@ describe('A usePeriodicCallback', () => {
         const {rerender} = renderHook(({callback, delay}) => {
             return usePeriodicCallback(callback, delay)
         }, initialProps)
-        vi.advanceTimersByTime(101)
+        jest.advanceTimersByTime(101)
         rerender({callback: callback2, delay: 100})
-        vi.advanceTimersByTime(101)
+        jest.advanceTimersByTime(101)
         expect(callback1).toHaveBeenCalledTimes(1)
         expect(callback2).toHaveBeenCalledTimes(1)
     })
