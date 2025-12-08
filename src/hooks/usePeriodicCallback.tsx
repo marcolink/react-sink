@@ -13,7 +13,7 @@ export function usePeriodicCallback<T>(
 
     // Set up the timeout loop.
     useEffect(() => {
-        let id: NodeJS.Timeout;
+        let id: ReturnType<typeof setTimeout> | undefined;
 
         function tick() {
             const currentCallback = savedCallback.current();
@@ -32,7 +32,11 @@ export function usePeriodicCallback<T>(
 
         if (delay !== null) {
             id = setTimeout(tick, delay);
-            return () => id && clearTimeout(id);
+            return () => {
+                if (id !== undefined) {
+                    clearTimeout(id);
+                }
+            };
         }
     }, [delay]);
 }
