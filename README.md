@@ -7,9 +7,9 @@ A classy kitchen sink for all react pieces daily used - not the ordinary.
 [![Semantic Release](https://github.com/marcolink/react-sink/actions/workflows/semantic-release.yml/badge.svg)](https://github.com/marcolink/react-sink/actions/workflows/semantic-release.yml)
 
 ### Install
-**yarn**
+**pnpm**
 ```
-yarn add react-sink
+pnpm add react-sink
 ```
 **npm**
 ```
