@@ -7,17 +7,19 @@
   "repository": "marcolink/react-sink",
   "homepage": "https://github.com/marcolink/react-sink",
   "main": "dist/index.mjs",
-  "typings": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
   "module": "dist/index.mjs",
   "files": [
     "dist",
     "README.md"
   ],
   "exports": {
-    "import": "./dist/index.mjs",
-    "node": "./dist/index.js",
-    "require": "./dist/index.js",
-    "default": "./dist/index.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
   },
   "keywords": [
     "react",
