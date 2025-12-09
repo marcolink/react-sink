@@ -7,10 +7,6 @@ A classy kitchen sink for all react pieces daily used - not the ordinary.
 [![Semantic Release](https://github.com/marcolink/react-sink/actions/workflows/semantic-release.yml/badge.svg)](https://github.com/marcolink/react-sink/actions/workflows/semantic-release.yml)
 
 ### Install
-**pnpm**
-```
-pnpm add react-sink
-```
 **npm**
 ```
 npm i react-sink
@@ -19,19 +15,33 @@ npm i react-sink
 ## Components
 
 ### `<AsyncContent/>`
+Render loading or error content until the async state resolves, then render children.
 ```typescript jsx
-import { Conditional } from 'react-sink'
+import { AsyncContent } from 'react-sink'
+import type { ReactNode } from 'react'
 
-function MyComponent({ isLoading, isError }) {
+type Props = {
+  isLoading: boolean
+  isError: boolean
+  content: ReactNode
+}
+
+function MyComponent({ isLoading, isError, content }: Props) {
     return (
-        <AsyncContent isLoading={ isLoading } isError={ isLoading }>
-            rendered when complete
+        <AsyncContent
+            isLoading={isLoading}
+            isError={isError}
+            loadingContent="Loading..."
+            errorContent="Something went wrong"
+        >
+            {content}
         </AsyncContent>
     )
 }
 ```
 
 ### `<Conditional/>`
+Render children only when `condition` is truthy.
 ```typescript jsx
 import { Conditional } from 'react-sink'
 
@@ -45,12 +55,14 @@ function MyComponent({ flag }) {
 ```
 
 ### `<ConditionalWrapper/>`
+Wrap children with a custom component when `condition` is truthy; otherwise render children as-is.
 ```typescript jsx
-import {ConditionalWrapper} from 'react-sink'
+import { ConditionalWrapper } from 'react-sink'
+import type { ReactNode } from 'react'
 
 function MyComponent({flag}) {
     return (
-        <ConditionalWrapper condition={true} wrapper={(children: ReactNode) => <h1>{children}</h1>}>
+        <ConditionalWrapper condition={flag} wrapper={(children: ReactNode) => <h1>{children}</h1>}>
             rendered for truthy condition
         </ConditionalWrapper>
     )
@@ -58,7 +70,9 @@ function MyComponent({flag}) {
 ```
 
 ## Hooks
+
 ### `useAllBoolean`
+Return `true` only if all boolean values in the provided record match the target boolean (defaults to `true`).
 ```typescript jsx
 import { useAllBoolean } from 'react-sink'
 
@@ -69,7 +83,45 @@ function MyComponent() {
 }
 ```
 
+### `useSomeBoolean`
+Return `true` if any boolean in the record matches the target boolean (defaults to `true`).
+```typescript jsx
+import { useSomeBoolean } from 'react-sink'
+
+function MyComponent() {
+    const anyTrue = useSomeBoolean({ featureA: true, featureB: false }) // true
+    const anyFalse = useSomeBoolean({ featureA: true, featureB: true }, false) // false
+}
+```
+
+### `useAllPropsMatch`
+Return `true` when every value in the record satisfies the provided matcher.
+```typescript jsx
+import { useAllPropsMatch } from 'react-sink'
+
+const data = { a: 1, b: 1, c: 2 }
+const matcher = (value: number) => value === 1
+
+function MyComponent() {
+    const allOnes = useAllPropsMatch(data, matcher) // false
+}
+```
+
+### `useSomePropsMatch`
+Return `true` when at least one value in the record satisfies the matcher.
+```typescript jsx
+import { useSomePropsMatch } from 'react-sink'
+
+const data = { a: 'active', b: 'idle' }
+const matcher = (value: string) => value === 'active'
+
+function MyComponent() {
+    const hasActive = useSomePropsMatch(data, matcher) // true
+}
+```
+
 ### `usePeriodicCallback`
+Call the provided callback on an interval until unmounted or `delay` becomes `null`.
 
 ```typescript jsx
 import {useCallback} from "react";
@@ -82,6 +134,7 @@ function MyComponent() {
 ```
 
 ### `useWindowSize`
+Track window `width` and `height`, updating on resize.
 
 ```typescript jsx
 import {useWindowSize} from 'react-sink'
@@ -92,6 +145,7 @@ function MyComponent() {
 ```
 
 ### `useAbortOnUnmount`
+Return an `AbortSignal` that will be aborted when the component unmounts.
 
 ```typescript jsx
 import {useAbortOnUnmount} from 'react-sink'
